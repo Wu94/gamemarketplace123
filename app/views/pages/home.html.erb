@@ -1,0 +1,23 @@
+<div class="row">
+<% for listing in @listings %>
+  <div class="col-md-4">
+        <div ="card">
+        <img class="card-img-top" style="width: 18rem;"<%= image_tag listing.picture if listing.picture.attached? %>
+                <div class="card-body">
+                        <h5 class="card-title"> <%= listing.title%> </h5>
+                                <p> Product: <%= listing.product.humanize.titleize %></p>
+                                <p> Platform: <%= listing.platform.name%></p>
+                                <p> Genre: <%= listing.genre.name.titleize %></p>
+                                <p> Price: <%= number_to_currency(listing.price)%></p> 
+                                <p> Seller: <%= listing.user.email %></p>
+                        <button class="btn btn-outline-secondary btn-sm" type="submit"><%= link_to "View Listing", listing_path(listing.id)%></button>
+                        <% if user_signed_in? && current_user.id == listing.user_id %>
+                                <%= form_with model: listing, local: true, method: "delete" do |form| %>
+                                <a><%= submit_tag "delete", class: "icon" %></a>
+                            <button class="btn btn-outline-secondary btn-sm" type="submit"><%= link_to "Edit", edit_listing_path(listing.id) %></button>
+                                <% end %>
+                                <% end %>
+                </div>  
+        </div> 
+</div> 
+<% end %>   

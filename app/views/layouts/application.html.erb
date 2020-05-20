@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GameMarketplace</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <h1><%= link_to "GAME AU", root_path, class: "navbar-brand" %></h1>
+         
+          <ul class="nav nav-right">
+            <% if user_signed_in? %>
+            
+              <%= link_to "Create listing", new_listing_path, class: "nav-link nav-item" %>
+            
+              <%= link_to "logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
+          
+            <% else %>
+              <li><%= link_to "login", new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+   
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<div class="container">
+<% if @listing.errors.any? %>
+    <ul>
+        <% @listing.errors.full_messages.each do |error| %>
+            <li> <%= error %> </li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_with(model: @listing, local: true) do |form| %>
+    <div>
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+    </div>
+
+    <div>
+        <%= form.label :description %>
+        <%= form.text_area :description %>
+    </div>
+
+    <div>
+    <% @products.each do |option| %>
+        <%= form.radio_button :product, option %>
+        <%= form.label option %> 
+    <% end %>
+    </div>
+
+    <div>
+        <%= form.label :platform_id %>
+        <%= form.select(:platform_id, @platforms.map{|b| [b.name, b.id]}) %>
+    </div>
+
+    <div>
+        <%= form.label :genre_id %>
+        <%= form.select(:genre_id, @genres.map{|b| [b.name, b.id]}) %>
+    </div>
+
+    <div>
+        <%= form.label :price %>
+        <%= form.number_field :price, value: @listing.price ? '%.2f' % @listing.price : nil, min: 0, step: 0.01 %>
+    </div>
+
+    <div>
+        <%= form.label :city %>
+        <%= form.text_field :city %>
+    </div>
+
+    <div>
+        <%= form.label :state %>
+        <%= form.text_field :state %>
+    </div>
+    
+    <div>
+        <%= form.label :date_of_listing %>
+        <%= form.date_field :date_of_listing %>
+    </div>
+
+    <div>
+        <%= form.label :picture %> <%= form.file_field :picture, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+    </div>
+    
+    <div>
+        <%= form.submit %>
+    </div>
+
+<% end %>
+</div>
